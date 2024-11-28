@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class TableImage extends BaseModel
 {
-    public function guestTableImages() : HasMany
+    public function guest(): BelongsTo
     {
-        return $this->hasMany(GuestTableImage::class, 'table_image_id', 'id');
+        return $this->belongsTo(Guest::class);
     }
 }

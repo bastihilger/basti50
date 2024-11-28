@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     public function up(): void
     {
         Schema::create('tables', function (Blueprint $table) {
@@ -18,7 +17,9 @@ return new class extends Migration
         Schema::create('table_images', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('table_id')->index();
-            $table->unsignedBigInteger('round_id')->index();
+            $table->unsignedBigInteger('round')->index();
+            $table->unsignedBigInteger('guest_id')->nullable()->index();
+            $table->string('path');
             $table->timestamps();
         });
     }

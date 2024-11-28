@@ -4,10 +4,11 @@ namespace App\Console\Commands;
 
 use App\Models\Guest;
 use App\Models\Party;
-use App\Models\Round;
 use App\Models\Table;
 use App\Models\TableImage;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class Reset extends Command
 {
@@ -17,22 +18,19 @@ class Reset extends Command
     {
         $this->call('migrate:fresh');
 
+        $imgPaths = collect(Storage::disk('public')->files('img/table-img'));
+        $usedImages = collect([]);
+
         $roundCount = 2;
         $guestCount = 41;
         $tableCount = 7;
+        $partyId = 1;
 
         Party::create([
-            'id' => 1,
+            'id' => $partyId,
+            'current_round' => 1,
+            'rounds' => $roundCount,
         ]);
-
-        for ($roundId = 1; $roundId <= $roundCount; $roundId++) {
-            Round::create([
-                'id' => $roundId,
-                'round' => $roundId,
-                'party_id' => 1,
-                'is_current' => $roundId === 1,
-            ]);
-        }
 
         for ($guestId = 1; $guestId <= $guestCount; $guestId++) {
             Guest::create([
@@ -53,30 +51,36 @@ class Reset extends Command
                 'seat_count' => $seatCount,
             ]);
 
-            for ($roundId = 1; $roundId <= $roundCount; $roundId++) {
+            for ($round = 1; $round <= $roundCount; $round++) {
                 for ($seatId = 1; $seatId <= $seatCount; $seatId++) {
+                    $imgPath = $imgPaths->filter(function ($path) use (&$usedImages, $partyId, $tableId) {
+                        return !$usedImages->contains($path)
+                            && Str::contains($path, '/' . $partyId . '_' . $tableId . '_');
+                    })->first();
+
+                    $usedImages->push($imgPath);
+
                     TableImage::create([
                         'table_id' => $tableId,
-                        'round_id' => $roundId,
+                        'round' => $round,
+                        'path' => '/' . $imgPath,
                     ]);
                 }
             }
         }
 
         for ($guestId = 1; $guestId <= $guestCount; $guestId++) {
-            $guest = Guest::find($guestId);
-            for ($roundId = 1; $roundId <= $roundCount; $roundId++) {
+            for ($round = 1; $round <= $roundCount; $round++) {
                 $tableImageQuery = TableImage::query()
-                    ->doesntHave('guestTableImages')->where('round_id', $roundId)->inRandomOrder();
+                    ->doesntHave('guest')->where('round', $round)->inRandomOrder();
 
                 if ($guestId <= 5) {
                     $tableImageQuery->where('table_id', 1);
                 }
 
-                $guest->guestTableImages()->create([
-                    'table_image_id' => $tableImageQuery->first()->id,
-                    'round_id' => $roundId,
-                ]);
+                $tableImage = $tableImageQuery->first();
+
+                $tableImage->update(['guest_id' => $guestId]);
             }
         }
     }
