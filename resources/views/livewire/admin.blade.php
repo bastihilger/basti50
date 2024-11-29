@@ -20,7 +20,7 @@ updated([
     'round' => function ($round) {
         if ($round > $this->party->current_round) {
             $this->party->guests->each(function ($guest) {
-                $guest->update(['current_step' => 1]);
+                $guest->update(['current_step' => 2]);
             });
         }
 

@@ -67,13 +67,13 @@ $stepBack = function () {
         @if($this->round === 1)
             <div class="grid gap-8">
                 <div class="grid gap-2">
-                    <p>Hallo, willkommen! Wie schön, dass du mit mir feierst!</p>
+                    <p>Hallo!<br>Schön, dass du mit mir feierst!</p>
                     <p class="text-3xl"> 🤗 🎉 🍾</p>
                 </div>
 
                 <div>
                     <flux:field>
-                        <flux:label>Wer bist du denn - schreibe hier deinen Namen:</flux:label>
+                        <flux:label>Wer bist du denn - schreib hier mal deinen Namen hin:</flux:label>
 
                         <flux:input wire:model="name"/>
 
