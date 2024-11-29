@@ -10,4 +10,9 @@ class TableImage extends BaseModel
     {
         return $this->belongsTo(Guest::class);
     }
+
+    public function tableModel(): BelongsTo
+    {
+        return $this->belongsTo(Table::class, 'table_id');
+    }
 }

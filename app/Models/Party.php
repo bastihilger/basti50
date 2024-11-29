@@ -10,4 +10,9 @@ class Party extends BaseModel
     {
         return $this->hasMany(Guest::class);
     }
+
+    public function quizzes(): HasMany
+    {
+        return $this->hasMany(Quiz::class);
+    }
 }

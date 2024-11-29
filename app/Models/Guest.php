@@ -19,6 +19,20 @@ class Guest extends BaseModel
         return $this->hasMany(TableImage::class);
     }
 
+    public function currentTable(): Table
+    {
+        $round = $this->party->current_round;
+
+        return $this->tableImages()->where('round', $round)->first()->tableModel;
+    }
+
+    public function currentQuiz(): Quiz
+    {
+        $round = $this->party->current_round;
+
+        return $this->party->quizzes()->where('round', $round)->first();
+    }
+
     public function url(): string
     {
         return config('app.live_url') . '/guest/' . $this->id;
