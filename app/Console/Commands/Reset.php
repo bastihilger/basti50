@@ -23,7 +23,7 @@ class Reset extends Command
         $usedImages = collect([]);
 
         $roundCount = 2;
-        $guestCount = 41;
+        $guestCount = 40;
         $tableCount = 7;
         $partyId = 1;
 
@@ -42,7 +42,7 @@ class Reset extends Command
 
         for ($tableId = 1; $tableId <= $tableCount; $tableId++) {
             $seatCount = 6;
-            if ($tableId === 1) {
+            if ($tableId < 3) {
                 $seatCount = 5;
             }
 
@@ -50,6 +50,7 @@ class Reset extends Command
                 'id' => $tableId,
                 'party_id' => 1,
                 'seat_count' => $seatCount,
+                'path' => '/img/table/1_' . $tableId . '.webp',
             ]);
 
             for ($round = 1; $round <= $roundCount; $round++) {
@@ -200,7 +201,7 @@ class Reset extends Command
                     ]
                 ],
                 [
-                    'question' => 'Da fällt mir wieder eine Frage zu Gyso ein... der hat ja gefühlt bereits mit 12 seine erste Band gehabt. Die zweite Band Manhatten spielte schon in den größten Hallen Darmstadts, und ich durfte ausnahmsweise auch auf die Konzerte, obwohl ich erst 14 war... erinnert ihr euch noch die Songtitel? Einen der folgenden gab es tatsächlich:',
+                    'question' => 'Da fällt mir wieder eine Frage zu Gyso ein... der hat ja gefühlt bereits mit 9 seine erste Band gehabt. Die zweite Band "Manhatten" spielte schon in den größten Hallen Darmstadts, und ich durfte ausnahmsweise auch auf die Konzerte, obwohl ich erst 14 war... erinnert ihr euch noch die Songtitel? Einen der folgenden gab es tatsächlich:',
                     'solution' => '"Marimba! (La la la la la)"',
                     'answers' => [
                         [
@@ -269,23 +270,111 @@ class Reset extends Command
                     ]
                 ],
                 [
-                    'question' => 'So - Berlin, da habe ich ja recht lange gelebt. Erzähl ich ja gerne. Daher wisst ihr bestimmt wie viele Jahre genau!',
-                    'solution' => 'Von 1996 bis 2009 - also 13 Jahre.',
+                    'question' => 'Nochmal Berlin: ich bin ein Bisschen rumgekommen. Was ist die richtige Reihenfolge der Bezirke, in denen ich Wohnungen hatte?',
+                    'solution' => 'Richtig ist Studentwohnheim Zehlendorf - Fuggerstraße (Schöneberg) - Lüneburger Straße (Moabit) - Bayrische Straße (Charlottenburg) - Simon-Dach-Straße (Friedrichshain)',
                     'answers' => [
                         [
-                            'text' => '9 Jahre',
-                            'is_correct' => false,
-                        ],
-                        [
-                            'text' => '11 Jahre',
-                            'is_correct' => false,
-                        ],
-                        [
-                            'text' => '13 Jahre',
+                            'text' => 'Zehlendorf - Schöneberg - Moabit - Charlottenburg - Friedrichshain',
                             'is_correct' => true,
                         ],
                         [
-                            'text' => '15 Jahre',
+                            'text' => 'Wedding - Zehlendorf - Charlottenburg - Kreuzberg - Friedrichshain',
+                            'is_correct' => false,
+                        ],
+                        [
+                            'text' => 'Zehlendorf - Charlottenburg - Moabit - Schöneberg - Friedrichshain',
+                            'is_correct' => false,
+                        ],
+                        [
+                            'text' => 'Zehlendorf - Charlottenburg - Moabit - Prenzlauer Berg - Friedrichshain',
+                            'is_correct' => false,
+                        ],
+                    ]
+                ],
+                [
+                    'question' => 'Und dann traten ja zum Glück Sandra und etwas später Henri in mein Leben, und ich durfte zurück nach Darmstadt 🤗. Die beiden haben ja einiges gemeinsam, z.B...',
+                    'solution' => 'Sie kamen im schönen Marienhospital auf die Welt, in dem das inzwischen ja leider gar nicht mehr möglich ist!',
+                    'answers' => [
+                        [
+                            'text' => '...gingen beide auf die gleiche Schule',
+                            'is_correct' => false,
+                        ],
+                        [
+                            'text' => '...wurden beide in der gleichen Kirche getauft',
+                            'is_correct' => false,
+                        ],
+                        [
+                            'text' => '...gingen beide in den gleichen Kindergarten',
+                            'is_correct' => false,
+                        ],
+                        [
+                            'text' => '...kamen beide im gleichen Krankenhaus auf die Welt',
+                            'is_correct' => true,
+                        ],
+                    ]
+                ],
+                [
+                    'question' => 'Ihr kennt mich ja alle so gut, dass ihr bestimmt wisst, was ich beruflich so mache. Ich beschäftige mich nämlich die Hälfte des Tages mit:',
+                    'solution' => 'JavaScript reicht mir als Programmiersprache für das Frontend, VueJS ist mein Lieblings-JavaScript-Framework',
+                    'answers' => [
+                        [
+                            'text' => 'JavaScript und VueJS',
+                            'is_correct' => true,
+                        ],
+                        [
+                            'text' => 'TypeScript und React',
+                            'is_correct' => false,
+                        ],
+                        [
+                            'text' => 'TypeScript und SvelteJS',
+                            'is_correct' => false,
+                        ],
+                        [
+                            'text' => 'JavaScript und React',
+                            'is_correct' => false,
+                        ],
+                    ]
+                ],
+                [
+                    'question' => 'Oh Nein! Noch so eine Nerd-Frage... 🤪 🤓! Das müsst ihr aber wissen: die andere Hälfte des Tages benutze ich:',
+                    'solution' => 'PHP ist NATÜRLICH die beste Programmiersprache für Web-Anwendungen.',
+                    'answers' => [
+                        [
+                            'text' => 'Ruby',
+                            'is_correct' => false,
+                        ],
+                        [
+                            'text' => 'Rust',
+                            'is_correct' => false,
+                        ],
+                        [
+                            'text' => 'PHP',
+                            'is_correct' => true,
+                        ],
+                        [
+                            'text' => 'Python',
+                            'is_correct' => false,
+                        ],
+                    ]
+                ],
+                [
+                    'question' => 'Wichtigste Frage – Snowboard fahre ich gerne, und meine Fußstellung dabei nennt man:',
+                    'solution' => 'Ich bin ein Goofy.',
+                    'answers' => [
+                        [
+                            'text' => 'Regular',
+                            'is_correct' => false,
+                        ],
+                        [
+                            'text' => 'Minnie',
+                            'is_correct' => false,
+                        ],
+                        [
+                            'text' => 'Goofy',
+                            'is_correct' => true,
+                        ],
+                        [
+                            'text' => 'Irregular',
                             'is_correct' => false,
                         ],
                     ]

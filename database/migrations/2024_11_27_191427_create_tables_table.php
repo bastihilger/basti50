@@ -11,6 +11,7 @@ return new class extends Migration {
             $table->id();
             $table->unsignedBigInteger('party_id')->index();
             $table->unsignedInteger('seat_count')->default(1);
+            $table->string('path');
             $table->timestamps();
         });
 

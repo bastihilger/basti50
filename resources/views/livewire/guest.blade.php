@@ -142,10 +142,12 @@ $stepBack = function () {
                     <p>
                         Bevor es
                         <span class="text-3xl">🍖 🥬 👨‍🍳</span>
-                        gibt, musst du noch deinen Tisch suchen.
+                        gibt, musst du noch deinen Tisch suchen. Aber keine Angst - das bleibt nicht den ganzen Abend
+                        dein Sitzplatz, das ändert sich bald wieder!
                         <br><br>
 
                         Dort, wo du das hier unten findest, da lasse dich nieder:
+
                     </p>
                 @else
                     <p>Du hast es geahnt - du musst wieder suchen:</p>
@@ -176,9 +178,12 @@ $stepBack = function () {
 
             <div>
                 @if($this->round === 1)
+                    <strong>Oh, ein Quiz!</strong>
+                    <br><br>
                     Damit euch nicht langweilig wird, hier ein paar Quizfragen. Heute geht es nur um mich! Mal sehen,
                     wie gut ihr mich kennt 😅<br>
-                    Achtung: Alle am Tisch raten zusammen. Wenn einer die Frage einloggt, loggt er sie für alle ein!y
+                    Achtung: Alle am Tisch raten zusammen. Wenn jemand die Frage einloggt, ist sie für alle am Tisch
+                    eingeloggt!
                 @else
                     Weiter geht's mit dem Quiz - <strong>Runde {{ $this->round }}</strong>
                 @endif

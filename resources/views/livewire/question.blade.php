@@ -1,7 +1,8 @@
 <?php
 
+use App\Events\TableAnswerUpdated;
 use App\Models\TableAnswer;
-use function Livewire\Volt\{state, mount, computed};
+use function Livewire\Volt\{state, mount, computed, on};
 
 
 state([
@@ -16,6 +17,10 @@ state([
 mount(function () {
     $this->checkTableAnswer();
 });
+
+on(['echo:party,TableAnswerUpdated' => function ($event) {
+    $this->checkTableAnswer();
+}]);
 
 $isLockable = computed(function () {
     return $this->answer > 0;
@@ -33,6 +38,8 @@ $checkTableAnswer = function () {
 $lock = function () {
     $this->tableAnswer->update(['answer_id' => $this->answer]);
 
+    TableAnswerUpdated::dispatch($this->question->id);
+
     $this->checkTableAnswer();
 };
 
@@ -49,9 +56,9 @@ $lock = function () {
     </div>
 
     <div class="grid gap-8">
-        <flux:radio.group wire:model.live="answer" variant="cards" class="max-sm:flex-col">
+        <flux:radio.group wire:model.live="answer" variant="cards" class="max-sm:flex-col text-left">
             @foreach($this->question->answers as $answer)
-                <flux:radio :value="$answer->id" :label="$answer->text"/>
+                <flux:radio :value="$answer->id" :label="$answer->text" class="{{ $this->tableAnswer->isAnswered() ? 'opacity-40 pointer-events-none' : '' }}"/>
             @endforeach
         </flux:radio.group>
 

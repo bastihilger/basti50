@@ -15,4 +15,9 @@ class Party extends BaseModel
     {
         return $this->hasMany(Quiz::class);
     }
+
+    public function tables(): HasMany
+    {
+        return $this->hasMany(Table::class);
+    }
 }
